@@ -17,6 +17,26 @@ def calculate_confidence_interval(data, confidence_level=0.95):
 
 # Streamlit user input
 st.title("Confidence Interval and Sample Size Analysis")
+st.header("inputs data")
+average = st.slider(
+    "Average",
+    min_value=0.0,
+    max_value=100.0,
+    value=60.0)
+
+sd = st.slider(
+    "Standard Deviation",
+    min_value=0.0,
+    max_value=100.0,
+    value=10.0)
+
+random_seed = st.slider(
+    "Random Seed",
+    min_value=0,
+    max_value=100,
+    value=42)
+
+st.header("samples")
 confidence_level = st.slider(
     "Confidence Level",
     min_value=90,
@@ -29,8 +49,11 @@ max_sample_size = st.slider(
     value=500)
 
 # Generate data from a normal distribution (mean=0, std=1)
-np.random.seed(42)
-full_data = np.random.normal(loc=0, scale=1, size=max_sample_size)
+np.random.seed(np.int64(random_seed))
+full_data = np.random.normal(
+    loc=average,
+    scale=sd,
+    size=max_sample_size)
 
 # A. Sample Size vs Mean and Confidence Interval
 
